@@ -1,6 +1,6 @@
 # Node.js recruitment task
 
-We'd like you to build a simple Movie API. It should provide two endpoints:
+We'd like you to build a simple Movies API. It should provide two endpoints:
 
 1. `POST /movies`
    1. Allows creating a movie object based on movie title passed in the request body
@@ -140,3 +140,6 @@ Response
 - Tests quality
 - Database design
 - Technology stack
+
+## Docs
+https://documenter.getpostman.com/view/5725201/TW6tLALV
