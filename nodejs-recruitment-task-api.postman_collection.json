@@ -1,0 +1,466 @@
+{
+	"info": {
+		"_postman_id": "83c1d231-7cfb-49dd-8c5e-60ceddb0aa42",
+		"name": "nodejs-recruitment-task-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Issue JWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"basic-thomas\",\n    \"password\": \"sR-_pcoow-27-6PAwCD8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Issue JWT (premium role)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"premium-jim\",\n    \"password\": \"GBLtTyq3E_UNjFnpo9m6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQzNCwibmFtZSI6IlByZW1pdW0gSmltIiwicm9sZSI6InByZW1pdW0iLCJpYXQiOjE2MTE0MTc0NzksImV4cCI6MTYxMTQxOTI3OSwiaXNzIjoiaHR0cHM6Ly93d3cubmV0Z3VydS5jb20vIiwic3ViIjoiNDM0In0.Q9NWeZ1d7F6itIGiRdE0d2aQxZWebsOYZy47pcLZsAM\"\n}"
+				},
+				{
+					"name": "Issue JWT (basic role)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"basic-thomas\",\n    \"password\": \"sR-_pcoow-27-6PAwCD8\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTYxMTQxNzQzMSwiZXhwIjoxNjExNDE5MjMxLCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.121rMn4eUy7e6YYxV1r1ZLyqJmcPiWbwlgegLZ8Zv2A\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/movies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get movies",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3415"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"d57-WgN3Cwuz2Yzjj0KidUo7JWs2ax4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 23 Jan 2021 15:58:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"created\": {\n            \"at\": \"2021-01-23T14:43:46.000Z\",\n            \"by\": 123\n        },\n        \"_id\": \"600c3622504018046ba5821f\",\n        \"title\": \"The Bar\",\n        \"released\": \"2017-03-24T00:00:00.000Z\",\n        \"genre\": \"Comedy, Horror, Thriller\",\n        \"directory\": \"Álex de la Iglesia\",\n        \"__v\": 0\n    },\n    {\n        \"created\": {\n            \"at\": \"2021-01-23T14:57:36.000Z\",\n            \"by\": 434\n        },\n        \"_id\": \"600c39601f40d004c921526a\",\n        \"title\": \"Fast & Furious 6\",\n        \"released\": \"2013-05-24T00:00:00.000Z\",\n        \"genre\": \"Action, Adventure, Thriller\",\n        \"directory\": \"Justin Lin\",\n        \"__v\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Create movie",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/movies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create movie (success)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "192"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c0-/Pp7WAaJmUl7Dx3D5E4fEOuBh8A\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 23 Jan 2021 16:01:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"600c486c1f40d004c9215273\",\n    \"title\": \"Doe\",\n    \"released\": \"2018-09-27T00:00:00.000Z\",\n    \"genre\": \"Thriller\",\n    \"directory\": \"Justin Foia\",\n    \"created\": {\n        \"at\": \"2021-01-23T16:01:48.000Z\",\n        \"by\": 123\n    },\n    \"__v\": 0\n}"
+				},
+				{
+					"name": "Create movie (basic user - monthly movie limit reached)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "67"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"43-YzzHGqVaDAz5YJwb0kNlXkbMCb0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 23 Jan 2021 15:59:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Bad request\",\n    \"details\": \"Movies limit reached this month\"\n}"
+				},
+				{
+					"name": "Create movie (invalid payload)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"39-VufNs6pS6Nx1RkO7fyOZVmnBQZs\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 23 Jan 2021 16:01:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Bad request\",\n    \"details\": \"Title cannot be empty\"\n}"
+				},
+				{
+					"name": "Create movie (without token)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "59"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3b-BuXSvQYoG50tRGs+DRnqCX/K7Lk\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 23 Jan 2021 15:59:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Unauthorized\",\n    \"details\": \"Invalid token provided\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "0.0.0.0:3000"
+		}
+	]
+}
