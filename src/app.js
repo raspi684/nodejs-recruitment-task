@@ -1,21 +1,4 @@
-// Set environment
-const path = require('path');
-
-const nodeEnv = process.env.NODE_ENV || 'prod';
-let envFilename;
-switch (nodeEnv.toLowerCase()) {
-  case 'dev':
-    envFilename = '.env.dev';
-    break;
-  case 'test':
-    envFilename = '.env.test';
-    break;
-  default:
-    envFilename = '.env';
-}
-require('dotenv').config({
-  path: path.join(__dirname, envFilename),
-});
+require('dotenv').config();
 
 const mongoose = require('mongoose');
 const app = require('./server');
