@@ -18,7 +18,6 @@ services:
   db:
     image: 'bitnami/mongodb:latest'
     environment:
-      - MONGODB_ROOT_PASSWORD=password
       - MONGODB_USERNAME=${MONGO_USER}
       - MONGODB_PASSWORD=${MONGO_PASSWORD}
       - MONGODB_DATABASE=${MONGO_DB}
