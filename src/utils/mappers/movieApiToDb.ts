@@ -1,6 +1,10 @@
-export default [
+import {mapperType} from './mapper';
+
+const mapper: mapperType = [
   ['Title', 'title'],
   ['Released', 'released'],
   ['Genre', 'genre'],
-  ['Directory', 'directory'],
+  ['Director', 'director'],
 ];
+
+export default mapper;

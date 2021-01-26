@@ -1,4 +1,4 @@
-const getBeginningCurrentMonth = () => {
+const getBeginningCurrentMonth = (): Date => {
   const thisMonth = new Date();
   thisMonth.setDate(1);
   thisMonth.setHours(0);

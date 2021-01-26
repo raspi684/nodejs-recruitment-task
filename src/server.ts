@@ -1,5 +1,5 @@
-import express from 'express';
-import { json } from 'body-parser';
+import express, {NextFunction, Request, Response} from 'express';
+import {json} from 'body-parser';
 import { movieRoutes } from './routes/movies';
 import { AuthError, BadRequestError, UnauthorizedError } from './utils/errors';
 import { errorHandler } from './middleware/errorHandler';
@@ -11,16 +11,16 @@ const app = express();
 
 app.use(json());
 
-app.get('/test', (req, res) => {
+app.get('/test', (req: Request, res: Response) => {
   res.send();
 });
 
-app.post('/auth', (req, res, next) => {
+app.post('/auth', (req: Request, res: Response, next: NextFunction) => {
   if (!req.body) {
     return next(new BadRequestError('Invalid payload'));
   }
 
-  const { username, password } = req.body;
+  const {username, password} = req.body;
 
   if (!username || !password) {
     return next(new BadRequestError('Invalid payload'));

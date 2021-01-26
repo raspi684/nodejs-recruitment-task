@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { BadRequestError } from '../utils/errors';
 import { fetchMovie } from '../services/omdbapi';
-import { getBeginningCurrentMonth } from '../utils/date-utils';
-import { map } from '../utils/mapper';
+import {getBeginningCurrentMonth} from '../utils/date-utils';
+import {map} from '../utils/mappers/mapper';
 import movieApiToDb from '../utils/mappers/movieApiToDb';
 import Movie from '../models/Movie';
 
