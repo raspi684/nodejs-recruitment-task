@@ -25,102 +25,10 @@ request. The token should be passed in request's `Authorization` header.
 ```
 Authorization: Bearer <token>
 ```
-
-# Authorization service
-
-To authorize users please use our simple auth service based on JWT tokens.
-Auth service code is located under `./src` directory
-
 ## Prerequisites
 
 You need to have `docker` and `docker-compose` installed on your computer to run the service
 
-## Run locally
-
-1. Clone this repository
-1. Run from root dir
-
-```
-JWT_SECRET=secret docker-compose up -d
-```
-
-By default the auth service will start on port `3000` but you can override
-the default value by setting the `APP_PORT` env var
-
-```
-APP_PORT=8081 JWT_SECRET=secret docker-compose up -d
-```
-
-To stop the authorization service run
-
-```
-docker-compose down
-```
-
-## JWT Secret
-
-To generate tokens in auth service you need to provide env variable
-`JWT_SECRET`. It should be a string value. You should use the same secret in
-the API you're building to verify the JWT tokens.
-
-## Users
-
-The auth service defines two user accounts that you should use
-
-1. `Basic` user
-
-```
- username: 'basic-thomas'
- password: 'sR-_pcoow-27-6PAwCD8'
-```
-
-1. `Premium` user
-
-```
-username: 'premium-jim'
-password: 'GBLtTyq3E_UNjFnpo9m6'
-```
-
-## Token payload
-
-Decoding the auth token will give you access to basic information about the
-user including its role.
-
-```
-{
-  "userId": 123,
-  "name": "Basic Thomas",
-  "role": "basic",
-  "iat": 1606221838,
-  "exp": 1606223638,
-  "iss": "https://www.netguru.com/",
-  "sub": "123"
-}
-```
-
-## Example request
-
-To authorize user call the auth service using for example `curl`. We assume
-that the auth service is running of the default port `3000`.
-
-Request
-
-```
-curl --location --request POST '0.0.0.0:3080/auth' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username": "basic-thomas",
-    "password": "sR-_pcoow-27-6PAwCD8"
-}'
-```
-
-Response
-
-```
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTYwNjIyMTgzOCwiZXhwIjoxNjA2MjIzNjM4LCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.KjZ3zZM1lZa1SB8U-W65oQApSiC70ePdkQ7LbAhpUQg"
-}
-```
 
 ## Rules
 
@@ -141,5 +49,10 @@ Response
 - Database design
 - Technology stack
 
-## Docs
-https://documenter.getpostman.com/view/5725201/TW6tLALV
+## Results
+
+* Create `.env` basing on `.env.example`, use this file to passing environmental variables
+   * `MONGO_IP` should be set to `db` while using docker, otherwise it should be `localhost` or IP current machine
+* To start app in dev mode, run in root project directory `docker-compose -f docker-compse.dev.yml up -d`
+* To start app, run `docker-compose -f docker-compose.yml up -d`
+* API Docs in file `nodejs-recruitment-task-api.postman_collection.json` or https://documenter.getpostman.com/view/5725201/TW6tLALV
