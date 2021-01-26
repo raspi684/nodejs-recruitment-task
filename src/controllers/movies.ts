@@ -1,21 +1,22 @@
-const Movie = require('../models/Movie');
-const { BadRequestError } = require('../utils/errors');
-const ombdapi = require('../services/omdbapi');
-const dateUtils = require('../utils/date-utils');
-const mapper = require('../utils/mapper');
-const movieApiToDb = require('../utils/mappers/movieApiToDb');
+import { NextFunction, Request, Response } from 'express';
+import { BadRequestError } from '../utils/errors';
+import { fetchMovie } from '../services/omdbapi';
+import { getBeginningCurrentMonth } from '../utils/date-utils';
+import { map } from '../utils/mapper';
+import movieApiToDb from '../utils/mappers/movieApiToDb';
+import Movie from '../models/Movie';
 
-module.exports.index = async (req, res) => {
+const index = async (req: Request, res: Response) => {
   // Retrieve all movies
   const movies = await Movie.find();
   res.send(movies);
 };
 
-module.exports.store = async (req, res, next) => {
+const store = async (req: Request, res: Response, next: NextFunction) => {
   // Handle basic user monthly movies limit
   const { user } = res.locals;
   if (user.role === 'basic') {
-    const thisMonth = dateUtils.getBeginningCurrentMonth();
+    const thisMonth = getBeginningCurrentMonth();
     const records = await Movie.find({ 'created.by': user.userId, 'created.at': { $gte: thisMonth } });
     if (records.length >= 5) {
       return next(new BadRequestError('Movies limit reached this month'));
@@ -28,16 +29,18 @@ module.exports.store = async (req, res, next) => {
     next(new BadRequestError('Title cannot be empty'));
   } else {
     try {
-      const data = mapper.map(movieApiToDb, await ombdapi.fetchMovie(title));
+      const data = map(movieApiToDb, await fetchMovie(title));
 
       // Check if movie is already in DB
       const movie = await Movie.findOne({
+        // @ts-ignore
         title: data.title,
       });
       if (movie) {
         throw new BadRequestError('Movies already exists');
       }
       // Store movie and return it
+      // @ts-ignore
       const releasedDate = (data.released !== 'N/A') ? new Date(data.released) : null;
       Movie.create({
         ...data,
@@ -46,11 +49,16 @@ module.exports.store = async (req, res, next) => {
           at: Date(),
           by: user.userId,
         },
-      }).then((createdMovie) => {
+      }).then((createdMovie: any) => {
         res.status(201).send(createdMovie);
       });
     } catch (e) {
       next(e);
     }
   }
+};
+
+export {
+  index,
+  store,
 };

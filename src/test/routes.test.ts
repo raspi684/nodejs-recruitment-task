@@ -1,20 +1,20 @@
-const mongoose = require('mongoose');
-const supertest = require('supertest');
-const nock = require('nock');
-const app = require('../src/server');
-const Movie = require('../src/models/Movie');
-const { MONGO_IP, OMDBAPI_KEY } = require('../src/config/env');
-const { omdbapiNotFoundResponse, omdbapiOkResponse } = require('./omdbapi.mock.js');
+import mongoose from 'mongoose';
+import supertest from 'supertest';
+import nock from 'nock';
+import app from '../server';
+import { omdbapiNotFoundResponse, omdbapiOkResponse } from './omdbapi-mock';
+import Movie from '../models/Movie';
+import { MONGO_IP, OMDBAPI_KEY } from '../config/env';
 
 const request = supertest(app);
 let basicToken = '';
 let premiumToken = '';
 
-async function createFiveMovies(token) {
+async function createFiveMovies(token: string) {
   for (let i = 0; i < 5; i += 1) {
     // eslint-disable-next-line no-await-in-loop
     const res = await request.post('/movies').auth(token, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(201);
+    expect(res.status).toEqual(201);
     // eslint-disable-next-line no-underscore-dangle,no-await-in-loop
     await Movie.updateOne({ _id: res.body._id }, { $set: { title: `${res.body.title}-${i}` } }).exec();
   }
@@ -67,6 +67,7 @@ describe('Test movies', () => {
     for (const collectionName of collections) {
       const collection = mongoose.connection.collections[collectionName];
       // eslint-disable-next-line no-await-in-loop
+      // @ts-ignore
       await collection.deleteMany();
     }
   }
@@ -78,7 +79,7 @@ describe('Test movies', () => {
   it('should return an array', async (done) => {
     const res = await request.get('/movies');
 
-    expect(res.statusCode).toEqual(200);
+    expect(res.status).toEqual(200);
     expect(Array.isArray(res.body)).toBe(true);
     done();
   });
@@ -86,34 +87,34 @@ describe('Test movies', () => {
   it('should return an unauthorized error', async (done) => {
     const res = await request.post('/movies').send({ title: '' });
 
-    expect(res.statusCode).toEqual(401);
+    expect(res.status).toEqual(401);
     done();
   });
 
   it('should return an bad request error', async (done) => {
     const res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: '' });
-    expect(res.statusCode).toEqual(400);
+    expect(res.status).toEqual(400);
 
     done();
   });
 
   it('should return created movie', async (done) => {
     const res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(201);
+    expect(res.status).toEqual(201);
     done();
   });
 
   it('should return created movie', async (done) => {
     const res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(201);
+    expect(res.status).toEqual(201);
     done();
   });
 
   it('should return a bad request error (movie already exists)', async (done) => {
     let res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(201);
+    expect(res.status).toEqual(201);
     res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(400);
+    expect(res.status).toEqual(400);
     done();
   });
 
@@ -125,20 +126,20 @@ describe('Test movies', () => {
   it('should not create 6 movies (basic user)', async (done) => {
     await createFiveMovies(basicToken);
     const res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(400);
+    expect(res.status).toEqual(400);
     done();
   });
 
   it('should create 6 movies (premium user)', async (done) => {
     await createFiveMovies(premiumToken);
     const res = await request.post('/movies').auth(premiumToken, { type: 'bearer' }).send({ title: 'Mr Robot' });
-    expect(res.statusCode).toEqual(201);
+    expect(res.status).toEqual(201);
     done();
   });
 
   it('should return a not found error for not existsing movie', async (done) => {
     const res = await request.post('/movies').auth(basicToken, { type: 'bearer' }).send({ title: 'UnknownMovieTitle' });
-    expect(res.statusCode).toEqual(404);
+    expect(res.status).toEqual(404);
     done();
   });
 });
