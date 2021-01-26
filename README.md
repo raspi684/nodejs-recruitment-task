@@ -1,5 +1,14 @@
 # Node.js recruitment task
 
+## Results
+
+* Create `.env` basing on `.env.example`, use this file to passing environmental variables
+    * `MONGO_IP` should be set to `db` while using docker, otherwise it should be `localhost` or IP current machine
+* To start app in dev mode, run in root project directory `docker-compose -f docker-compse.dev.yml up -d`
+* To start app, run `docker-compose -f docker-compose.yml up -d`
+* API Docs in file `nodejs-recruitment-task-api.postman_collection.json` or https://documenter.getpostman.com/view/5725201/TW6tLALV
+
+___
 We'd like you to build a simple Movies API. It should provide two endpoints:
 
 1. `POST /movies`
@@ -48,11 +57,3 @@ You need to have `docker` and `docker-compose` installed on your computer to run
 - Tests quality
 - Database design
 - Technology stack
-
-## Results
-
-* Create `.env` basing on `.env.example`, use this file to passing environmental variables
-   * `MONGO_IP` should be set to `db` while using docker, otherwise it should be `localhost` or IP current machine
-* To start app in dev mode, run in root project directory `docker-compose -f docker-compse.dev.yml up -d`
-* To start app, run `docker-compose -f docker-compose.yml up -d`
-* API Docs in file `nodejs-recruitment-task-api.postman_collection.json` or https://documenter.getpostman.com/view/5725201/TW6tLALV
