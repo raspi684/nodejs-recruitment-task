@@ -1,16 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { authFactory } = require('./auth');
-const { AuthError } = require('./utils/errors');
-const errorHandler = require('./middleware/errorHandler');
-const { movieRoutes } = require('./routes/movies');
-const { BadRequestError, UnauthorizedError } = require('./utils/errors');
-const { JWT_SECRET } = require('./config/env');
+import express from 'express';
+import { json } from 'body-parser';
+import { movieRoutes } from './routes/movies';
+import { AuthError, BadRequestError, UnauthorizedError } from './utils/errors';
+import { errorHandler } from './middleware/errorHandler';
+import { JWT_SECRET } from './config/env';
+import { authFactory } from './auth';
 
 const auth = authFactory(JWT_SECRET);
 const app = express();
 
-app.use(bodyParser.json());
+app.use(json());
 
 app.get('/test', (req, res) => {
   res.send();
@@ -43,4 +42,4 @@ app.post('/auth', (req, res, next) => {
 app.use(movieRoutes);
 app.use(errorHandler);
 
-module.exports = app;
+export = app;

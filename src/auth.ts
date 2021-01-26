@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const { AuthError } = require('./utils/errors');
+import { sign } from 'jsonwebtoken';
+import { AuthError } from './utils/errors';
 
 const users = [
   {
@@ -18,14 +18,14 @@ const users = [
   },
 ];
 
-const authFactory = (secret) => (username, password) => {
+const authFactory = (secret: string) => (username: string, password: string) => {
   const user = users.find((u) => u.username === username);
 
   if (!user || user.password !== password) {
     throw new AuthError('invalid username or password');
   }
 
-  return jwt.sign(
+  return sign(
     {
       userId: user.id,
       name: user.name,
@@ -40,6 +40,6 @@ const authFactory = (secret) => (username, password) => {
   );
 };
 
-module.exports = {
+export {
   authFactory,
 };

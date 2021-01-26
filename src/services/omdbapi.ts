@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
-const { NotFoundError } = require('../utils/errors');
-const { OMDBAPI_KEY } = require('../config/env');
+import fetch from 'node-fetch';
+import { NotFoundError } from '../utils/errors';
+import { OMDBAPI_KEY } from '../config/env';
 
-module.exports.fetchMovie = async (title) => {
+const fetchMovie = async (title: string) => {
   // Fetch movie data from OMDb
   const url = new URL('https://omdbapi.com/');
   url.searchParams.append('apikey', OMDBAPI_KEY);
@@ -15,4 +15,8 @@ module.exports.fetchMovie = async (title) => {
     throw new NotFoundError(data?.Error);
   }
   return data;
+};
+
+export {
+  fetchMovie,
 };
