@@ -1,15 +1,11 @@
 const fetch = require('node-fetch');
 const { NotFoundError } = require('../utils/errors');
-
-const { OMDBAPI_KEY } = process.env;
-if (!OMDBAPI_KEY) {
-  throw new Error('OMDBAPI_KEY is not in env variables');
-}
+const { OMDBAPI_KEY } = require('../config/env');
 
 module.exports.fetchMovie = async (title) => {
   // Fetch movie data from OMDb
   const url = new URL('https://omdbapi.com/');
-  url.searchParams.append('apikey', process.env.OMDBAPI_KEY);
+  url.searchParams.append('apikey', OMDBAPI_KEY);
   url.searchParams.append('t', title);
   const response = await fetch(url);
   const data = await response.json();

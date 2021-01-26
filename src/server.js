@@ -5,12 +5,7 @@ const { AuthError } = require('./utils/errors');
 const errorHandler = require('./middleware/errorHandler');
 const { movieRoutes } = require('./routes/movies');
 const { BadRequestError, UnauthorizedError } = require('./utils/errors');
-
-const { JWT_SECRET } = process.env;
-
-if (!JWT_SECRET) {
-  throw new Error('Missing JWT_SECRET env var. Set it and restart the server');
-}
+const { JWT_SECRET } = require('./config/env');
 
 const auth = authFactory(JWT_SECRET);
 const app = express();
