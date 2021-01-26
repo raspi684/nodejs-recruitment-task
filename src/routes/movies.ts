@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { isAuthenticated } from '../middleware/auth';
+import { isAuthenticated } from '../middleware';
 import * as Movies from '../controllers/movies';
 import { validate } from '../utils/validator';
 import storeMovieRequest from '../requests/storeMovieRequest';

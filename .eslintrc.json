@@ -16,10 +16,20 @@
         "project": ["tsconfig.eslint.json"],
         "sourceType": "module"
     },
+    "overrides": [
+        {
+            "files": ["*.test.ts"],
+            "rules": {
+                "import/no-extraneous-dependencies": "off"
+            }
+        }
+    ],
     "rules": {
         "no-console": "off",
         "consistent-return": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "max-len": "off",
+        "import/extensions": "off"
     },
     "parser": "@typescript-eslint/parser",
     "settings": {

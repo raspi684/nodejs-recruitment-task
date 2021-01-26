@@ -1,23 +1,24 @@
 // Array<[srcProperty, destProperty]>
-type mapperType = Array<[string, string]>;
+type KeyMapperType = Array<[string, string]>;
 
-const map = (mapping: mapperType, data: any) => {
+const keyMapper = <T1 = any, T2 = any>(mapping: KeyMapperType, data: T1): T2 => {
   const mappedObject = {};
   for (let i = 0; i < mapping.length; i += 1) {
     const property = mapping[i];
     Object.defineProperty(
-        mappedObject,
-        property[1],
-        {
-          value: data[property[0]],
-          enumerable: true,
-        },
+      mappedObject,
+      property[1],
+      {
+        // @ts-ignore
+        value: data[property[0]],
+        enumerable: true,
+      },
     );
   }
-  return mappedObject;
+  return mappedObject as T2;
 };
 
 export {
-  map,
-  mapperType,
+  keyMapper,
+  KeyMapperType,
 };

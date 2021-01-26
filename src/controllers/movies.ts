@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
+import movieApiToDb from '../utils/mappers/movieApiToDb';
 import { BadRequestError } from '../utils/errors';
 import { fetchMovie } from '../services/omdbapi';
-import {getBeginningCurrentMonth} from '../utils/date-utils';
-import {map} from '../utils/mappers/mapper';
-import movieApiToDb from '../utils/mappers/movieApiToDb';
+import { getBeginningCurrentMonth } from '../utils/date-utils';
+import { keyMapper } from '../utils/mappers';
 import Movie from '../models/Movie';
 
 const index = async (req: Request, res: Response) => {
@@ -17,7 +17,10 @@ const store = async (req: Request, res: Response, next: NextFunction) => {
   const { user } = res.locals;
   if (user.role === 'basic') {
     const thisMonth = getBeginningCurrentMonth();
-    const records = await Movie.find({ 'created.by': user.userId, 'created.at': { $gte: thisMonth } });
+    const records = await Movie.find({
+      'created.by': user.userId,
+      'created.at': { $gte: thisMonth },
+    });
     if (records.length >= 5) {
       return next(new BadRequestError('Movies limit reached this month'));
     }
@@ -29,7 +32,8 @@ const store = async (req: Request, res: Response, next: NextFunction) => {
     next(new BadRequestError('Title cannot be empty'));
   } else {
     try {
-      const data = map(movieApiToDb, await fetchMovie(title));
+      const jsonMovie = await fetchMovie(title);
+      const data = keyMapper(movieApiToDb, jsonMovie);
 
       // Check if movie is already in DB
       const movie = await Movie.findOne({
@@ -49,9 +53,11 @@ const store = async (req: Request, res: Response, next: NextFunction) => {
           at: Date(),
           by: user.userId,
         },
-      }).then((createdMovie: any) => {
-        res.status(201).send(createdMovie);
-      });
+      })
+        .then((createdMovie: any) => {
+          res.status(201)
+            .send(createdMovie);
+        });
     } catch (e) {
       next(e);
     }

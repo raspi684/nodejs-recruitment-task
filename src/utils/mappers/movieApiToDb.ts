@@ -1,6 +1,6 @@
-import {mapperType} from './mapper';
+import { KeyMapperType } from './mapper';
 
-const mapper: mapperType = [
+const mapper: KeyMapperType = [
   ['Title', 'title'],
   ['Released', 'released'],
   ['Genre', 'genre'],
