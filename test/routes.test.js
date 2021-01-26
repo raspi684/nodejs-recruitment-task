@@ -51,7 +51,8 @@ async function createFiveMovies(token) {
 
 describe('Test movies', () => {
   beforeAll(async () => {
-    const mongoUrl = 'mongodb://app:password@localhost:27017/moviesdb';
+    const mongoHost = process.env.MONGO_IP ?? 'localhost';
+    const mongoUrl = `mongodb://${mongoHost}:27017/moviesdb`;
     await mongoose.connect(mongoUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

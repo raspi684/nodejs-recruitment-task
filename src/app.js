@@ -3,12 +3,10 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const app = require('./server');
 
-const {
-  MONGO_DB, MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER,
-} = process.env;
-const MONGO_URL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/${MONGO_DB}`;
+const mongoHost = process.env.MONGO_IP ?? 'localhost';
+const mongoUrl = `mongodb://${mongoHost}:27017/moviesdb`;
 
-mongoose.connect(MONGO_URL, {
+mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
