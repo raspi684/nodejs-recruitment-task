@@ -13,7 +13,10 @@ const omdbapiOkResponse = {
   Country: 'USA',
   Awards: 'Won 2 Golden Globes. Another 19 wins & 78 nominations.',
   Poster: 'https://m.media-amazon.com/images/M/MV5BMzgxMmQxZjQtNDdmMC00MjRlLTk1MDEtZDcwNTdmOTg0YzA2XkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_SX300.jpg',
-  Ratings: [{ Source: 'Internet Movie Database', Value: '8.6/10' }],
+  Ratings: [{
+    Source: 'Internet Movie Database',
+    Value: '8.6/10',
+  }],
   Metascore: 'N/A',
   imdbRating: '8.6',
   imdbVotes: '331,347',
