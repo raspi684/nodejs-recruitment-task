@@ -3,41 +3,12 @@ const supertest = require('supertest');
 const nock = require('nock');
 const app = require('../src/server');
 const Movie = require('../src/models/Movie');
+const { MONGO_IP, OMDBAPI_KEY } = require('../src/config/env');
+const { omdbapiNotFoundResponse, omdbapiOkResponse } = require('./omdbapi.mock.js');
 
 const request = supertest(app);
 let basicToken = '';
 let premiumToken = '';
-
-const { OMDBAPI_KEY } = process.env;
-if (!OMDBAPI_KEY) {
-  throw new Error('OMDBAPI_KEY is not in env variables');
-}
-
-const omdbapiOkResponse = {
-  Title: 'Mr. Robot',
-  Year: '2015–2019',
-  Rated: 'TV-MA',
-  Released: '24 Jun 2015',
-  Runtime: '49 min',
-  Genre: 'Crime, Drama, Thriller',
-  Director: 'N/A',
-  Writer: 'Sam Esmail',
-  Actors: 'Rami Malek, Christian Slater, Carly Chaikin, Martin Wallström',
-  Plot: 'Elliot, a brilliant but highly unstable young cyber-security engineer and vigilante hacker, becomes a key figure in a complex game of global dominance when he and his shadowy allies try to take down the corrupt corporation he works for.',
-  Language: 'English, Swedish, Danish, Chinese, Persian, Spanish, Arabic, German',
-  Country: 'USA',
-  Awards: 'Won 2 Golden Globes. Another 19 wins & 78 nominations.',
-  Poster: 'https://m.media-amazon.com/images/M/MV5BMzgxMmQxZjQtNDdmMC00MjRlLTk1MDEtZDcwNTdmOTg0YzA2XkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_SX300.jpg',
-  Ratings: [{ Source: 'Internet Movie Database', Value: '8.6/10' }],
-  Metascore: 'N/A',
-  imdbRating: '8.6',
-  imdbVotes: '331,347',
-  imdbID: 'tt4158110',
-  Type: 'series',
-  totalSeasons: '4',
-  Response: 'True',
-};
-const omdbapiNotFoundResponse = { Response: 'False', Error: 'Movie not found!' };
 
 async function createFiveMovies(token) {
   for (let i = 0; i < 5; i += 1) {
@@ -51,13 +22,13 @@ async function createFiveMovies(token) {
 
 describe('Test movies', () => {
   beforeAll(async () => {
-    const mongoHost = process.env.MONGO_IP ?? 'localhost';
-    const mongoUrl = `mongodb://${mongoHost}:27017/moviesdb`;
+    const mongoUrl = `mongodb://${MONGO_IP}:27017/moviesdb`;
     await mongoose.connect(mongoUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
 
+    // Get JWTs
     basicToken = (await request
       .post('/auth')
       .send({
@@ -73,6 +44,7 @@ describe('Test movies', () => {
       }))
       .body.token;
 
+    // Mock OMNDbAPI responses
     nock('https://omdbapi.com')
       .persist()
       .get('/')
@@ -86,7 +58,6 @@ describe('Test movies', () => {
   });
 
   afterAll(async () => {
-    // Closes the Mongoose connection
     await mongoose.connection.close();
   });
 
